@@ -10,10 +10,7 @@ define(function(require) {
     describe('Application', function() {
 
         beforeEach(function(){
-            var $h1 = $('<h1>Romanes eunt domus</h1>'),
-                $appContainer = $('<div id="app"></div>');
-
-            $appContainer.append($h1);
+            var $appContainer = $('<div id="app"></div>');
             $('#fixtures').append($appContainer);
         });
 
@@ -23,16 +20,11 @@ define(function(require) {
 
         it('should correct the mispelled sentence', function() {
 
-            // Arrange
-            var $h1 = $('#app > h1');
-
-            // Assert
-            expect($h1.text()).to.be.equal('Romanes eunt domus');
-
             // Act
             app.start();
 
             // Assert
+            var $h1 = $('#app h1');
             expect($h1.text()).to.be.equal('Romani ite domum');
         });
     });
