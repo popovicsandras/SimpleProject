@@ -73,6 +73,19 @@ module.exports = function(grunt) {
                 }
             }
         },
+        copy: {
+            fonts: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= config.bower %>/bootstrap/fonts',
+                        src: ['*'],
+                        dest: '<%= config.dist %>/fonts',
+                        filter: 'isFile'
+                    }
+                ]
+            }
+        },
         requirejs: {
             compile: {
                 options: {
@@ -140,6 +153,6 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('build', ['clean', 'cssmin', 'htmlmin', 'requirejs', 'uglify']);
+    grunt.registerTask('build', ['clean', 'cssmin', 'htmlmin', 'copy:fonts', 'requirejs', 'uglify']);
     grunt.registerTask('default', ['build', 'connect:server']);
 };
