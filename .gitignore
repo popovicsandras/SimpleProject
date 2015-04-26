@@ -2,6 +2,7 @@ node_modules
 src/bower_components
 www
 .project
+.tmp
 .idea/
 *.iml
 *.log

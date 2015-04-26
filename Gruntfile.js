@@ -47,7 +47,7 @@ module.exports = function(grunt) {
         },
 
 
-        clean: ['<%= config.dist %>'],
+        clean: ['<%= config.dist %>', '.tmp'],
         cssmin: {
             options: {
                 shorthandCompacting: false,
@@ -57,8 +57,20 @@ module.exports = function(grunt) {
                 files: {
                     'www/assets/styles.css': [
                         '<%= config.bower %>/bootstrap/dist/css/bootstrap.css',
-                        '<%= config.bower %>/bootstrap/dist/css/bootstrap-theme.css'
+                        '<%= config.bower %>/bootstrap/dist/css/bootstrap-theme.css',
+                        '.tmp/app.css'
                     ]
+                }
+            }
+        },
+
+        less: {
+            main: {
+                options: {
+                    paths: ['<%= config.app %>/styles']
+                },
+                files: {
+                    ".tmp/app.css": '<%= config.app %>/styles/app.less'
                 }
             }
         },
@@ -153,6 +165,6 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('build', ['clean', 'cssmin', 'htmlmin', 'copy:fonts', 'requirejs', 'uglify']);
+    grunt.registerTask('build', ['clean', 'less', 'cssmin', 'htmlmin', 'copy:fonts', 'requirejs', 'uglify']);
     grunt.registerTask('default', ['build', 'connect:server']);
 };
