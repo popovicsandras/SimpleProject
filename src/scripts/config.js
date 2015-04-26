@@ -2,7 +2,7 @@
 'use strict';
 
 require.config({
-    baseUrl: "/scripts",
+    baseUrl: '/scripts',
     waitSeconds: 30,
     wrapShim: true,
     shim: {

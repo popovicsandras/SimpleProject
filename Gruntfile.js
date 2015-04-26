@@ -55,22 +55,22 @@ module.exports = function(grunt) {
             },
             target: {
                 files: {
-                    'www/assets/styles.css': [
+                    'www/styles/styles.css': [
                         '<%= config.bower %>/bootstrap/dist/css/bootstrap.css',
                         '<%= config.bower %>/bootstrap/dist/css/bootstrap-theme.css',
-                        '.tmp/app.css'
+                        '.tmp/styles.css'
                     ]
                 }
             }
         },
 
         less: {
-            main: {
-                options: {
-                    paths: ['<%= config.app %>/styles']
-                },
+            options: {
+                paths: ['<%= config.app %>/styles']
+            },
+            dist: {
                 files: {
-                    '.tmp/app.css': '<%= config.app %>/styles/app.less'
+                    '.tmp/styles.css': '<%= config.app %>/styles/styles.less'
                 }
             }
         },
@@ -96,6 +96,32 @@ module.exports = function(grunt) {
                         filter: 'isFile'
                     }
                 ]
+            },
+            dev: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= config.app %>/scripts',
+                        src: ['**/*'],
+                        dest: '<%= config.dist %>/scripts',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= config.bower %>',
+                        src: ['**/*'],
+                        dest: '<%= config.dist %>/bower_components',
+                        filter: 'isFile'
+                    },
+                    {
+                        src: '<%= config.app %>/index.html',
+                        dest: '<%= config.dist %>/index.html'
+                    },
+                    {
+                        src: '<%= config.bower %>/requirejs/require.js',
+                        dest: '<%= config.dist %>/scripts/require.js'
+                    }
+                ]
             }
         },
         requirejs: {
@@ -103,8 +129,8 @@ module.exports = function(grunt) {
                 options: {
                     name: 'main',
                     baseUrl: '<%= config.app %>/scripts',
-                    mainConfigFile: '<%= config.app %>/config.js',
-                    out: '<%= config.dist %>/assets/main.js',
+                    mainConfigFile: '<%= config.app %>/scripts/config.js',
+                    out: '<%= config.dist %>/scripts/main.js',
                     done: function(done, output) {
                         var duplicates = require('rjs-build-analysis').duplicates(output);
 
@@ -127,10 +153,10 @@ module.exports = function(grunt) {
             main: {
                 files: [{
                     src: '<%= config.bower %>/requirejs/require.js',
-                    dest: '<%= config.dist %>/assets/require.js'
+                    dest: '<%= config.dist %>/scripts/require.js'
                 },{
-                    src: '<%= config.dist %>/assets/main.js',
-                    dest: '<%= config.dist %>/assets/main.js'
+                    src: '<%= config.dist %>/scripts/main.js',
+                    dest: '<%= config.dist %>/scripts/main.js'
                 }]
             }
         },
@@ -165,6 +191,37 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('build', ['clean', 'less', 'cssmin', 'htmlmin', 'copy:fonts', 'requirejs', 'uglify']);
-    grunt.registerTask('default', ['build', 'connect:server']);
+    grunt.registerTask('serve', 'Starting webserver', function(target) {
+
+        if (target === 'dist') {
+            return grunt.task.run(['build:dist', 'connect:server']);
+        } else {
+            return grunt.task.run(['build', 'connect:server']);
+        }
+    });
+
+    grunt.registerTask('build', 'Build the application', function(target) {
+
+        if (target === 'dist') {
+            return grunt.task.run([
+                'clean',
+                'less',
+                'cssmin',
+                'htmlmin',
+                'copy:fonts',
+                'requirejs',
+                'uglify'
+            ]);
+        } else {
+            return grunt.task.run([
+                'clean',
+                'less',
+                'cssmin',
+                'copy:fonts',
+                'copy:dev'
+            ]);
+        }
+    });
+
+    grunt.registerTask('default', ['serve']);
 };

@@ -1,7 +1,7 @@
 /* global window */
 'use strict';
 
-require(['require', 'config'], function(require) {
+require(['require', 'scripts/config'], function(require) {
 
     require(['spec/app.spec.js'], function()
     {
