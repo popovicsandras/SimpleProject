@@ -1,0 +1,23 @@
+<!doctype html>
+    <head>
+        <title>Mocha Test Runner</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="bower_components/mocha/mocha.css">
+
+        <script src="bower_components/mocha/mocha.js"></script>
+        <script src="bower_components/chai/chai.js"></script>
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <script>
+            var expect = chai.expect;
+            var assert = chai.assert;
+
+            mocha.setup("bdd");
+            mocha.bail(false);
+        </script>
+        <script data-main="test-runner" src="bower_components/requirejs/require.js"></script>
+    </head>
+    <body>
+        <div id="mocha"></div>
+        <div id="fixtures" style="display:none; visibility: hidden;"></div>
+    </body>
+</html>

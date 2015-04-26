@@ -1,0 +1,31 @@
+{
+  "name": "SimpleProject",
+  "version": "0.0.0",
+  "authors": [
+    "Andras Popovics"
+  ],
+  "description": "A simple project skeleton",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "requirejs-text": "~2.0.14",
+    "requirejs": "~2.1.17"
+  },
+  "devDependencies": {
+    "jquery": "~2.1.3",
+    "underscore": "~1.8.3",
+    "mocha": "~2.2.4",
+    "modernizr": "~2.8.3",
+    "chai": "~2.2.0"
+  }
+}

@@ -1,0 +1,8 @@
+node_modules
+src/bower_components
+www
+.project
+.idea/
+*.iml
+*.log
+.DS_Store
