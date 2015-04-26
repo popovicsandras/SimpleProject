@@ -70,7 +70,7 @@ module.exports = function(grunt) {
                     paths: ['<%= config.app %>/styles']
                 },
                 files: {
-                    ".tmp/app.css": '<%= config.app %>/styles/app.less'
+                    '.tmp/app.css': '<%= config.app %>/styles/app.less'
                 }
             }
         },
