@@ -4,7 +4,8 @@
   "description": "A simple project skeleton",
   "main": "index.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "author": "Andras Popovics",
   "license": "ISC",
